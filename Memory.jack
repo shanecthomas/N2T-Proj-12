@@ -1,0 +1,87 @@
+class Memory {  //FINISHED
+
+  static int head;
+
+  function void init() {
+    var Array Memory;
+    let Memory = 0;
+    let head = 2048;        //heap head
+    let Memory[head] = 14336;  //Memory[heap head] = heap tail
+    let Memory[head + 1] = 0;
+
+    return;
+  }
+
+  //: Returns the value of RAM[address].
+  function int peek(int address) {
+    var Array Memory;
+    let Memory = 0;
+    return Memory[address];
+  }
+
+  //: Sets RAM[address] to the given value.
+  function void poke(int address, int value) {
+    var Array Memory;
+    let Memory = 0;
+    let Memory[addres] = value;
+    return;
+  }
+
+  //: Finds an available RAM block of the given size and returns its base address.
+  function Array alloc(int size) {
+    var int pBlock;  //previous block
+    var int cBlock;  //current block
+    var int cSize;   //current block size
+    var int bfBlock;  //best fit block
+    var int bfPreBlock;  //best fit block
+    var int ref;      //reference 
+
+    let cBlock = head;
+    let cSize = peek(cBlock);
+    let bfBlock = head;
+    let bfPreBlock = 0;
+
+    while (~(peek(cBlock + 1) = 0)) {  //while more blocks in free list
+      let pBlock = cBlock;
+      let cBlock = peek(cBlock + 1);
+  
+      if ((~(cSize < (size + 1))) & ((cSize < peek(bfBlock)) | (peek(bfBlock) < (size + 1)))) {  //if current block is valid & less than previous block
+        let bfPreBlock = pBlock;
+        let bfBlock = cBlock;
+      }
+    }
+
+    if (peek(bfBlock) < (size + 1)) {  //invalid block size
+      do Sys.halt();
+    }
+
+    if (peek(bfBlock) - (size + 1) < 2) {  //if all of bfBlock will be used, remove & return reference
+      if (bfPreBlock = 0) {
+        let head = peek(bfBlock + 1);
+      }
+      else {
+        do poke(bfPreBlock + 1, peek(bfBlock + 1));
+      }
+
+      return bfBlock + 1;
+    }
+
+    do poke(bfBlock, (Memory.peek(bfBlock) - (size + 1)));  //else, subtract block being used from bfBlock
+    let ref = bfBlock + peek(bfBlock) + 1;  //reference = end of bfBlock
+    do poke((ref - 1), (size + 1));
+
+    return ref;
+  }
+
+  //: Deallocates the given object, which is cast as an array. 
+  // In other words, makes the RAM block that starts in this address available for future memory allocations.
+  function void deAlloc(Array o) {
+    var int free;
+    let free = o;
+    do poke(free, head);
+    let head = free - 1;
+
+    return;
+  }
+
+}

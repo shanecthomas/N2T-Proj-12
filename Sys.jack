@@ -1,0 +1,60 @@
+class Sys { //FINISHED
+
+  function void init() {
+    do Memory.init();
+    do Math.init();
+    do Output.init();
+    do Screen.init();
+    do Keyboard.init();
+    do Main.main();
+    do halt();
+    return;
+  }
+
+  //Halts the program execution
+  function void halt() {
+    while (true) {
+
+    }
+    return;
+  }
+
+  //Displays the error code, using the format ERR<errorCode>, and halts the program’s execution.
+  function void error(int errorCode) {
+    var String e;
+    var String num;
+    var int i;
+
+    let e = "ERR";
+    let num = String.new(10);
+    let i = 0;
+
+    do e.setInt(errorCode);
+    while (i < num.length()) {
+      do e.appendChar(num.charAt(i));
+      let i = i + 1;
+    }
+
+    do Output.printString(e);
+    do e.dispose();
+    do num.dispose();
+    do halt();
+    return;
+  }
+
+  //Waits approximately duration milliseconds and returns.
+  function void wait(int duration) {
+    var int i, j;
+    let i = 0;
+    while (i < duration) {
+      let j = 0;
+      while (j < 1000) {
+        let j = j + 1;
+      }
+      let i = i + 1;
+    }
+
+    return;
+  }
+
+}

@@ -1,0 +1,135 @@
+class Math { //FINISHED
+
+  function void init() {
+    return;
+  }
+
+  //Returns the product of x and y. When a Jack compiler detects the multiplication operator * in the program’s code, 
+  //it handles it by invoking this function. Thus the Jack expressions x * y and the function call 
+  //Math.multiply(x,y) return the same value.
+  function int multiply (int x, int y) {
+    var int sum;
+    var int sftx;
+    var int i;
+    var Array a;
+
+    let sum = 0;
+    let sftx = x;
+    let a = binary(y);
+    let i = 0;
+
+    while (i < 16) {
+      if (a[i] = 1) {
+        sum = sum + sftx;
+      }
+      let sftx = 2 * sftx;
+      let i = i + 1;
+    }
+    do Array.dipose();
+    return sum;
+  }
+
+  // Returns the integer part of x / y. When a Jack compiler detects the division operator / in the program’s code, 
+  //it handles it by invoking this function. Thus the Jack expressions x / y and the
+  //function call Math.divide(x,y) return the same value.
+  function int divide(int x, int y) {
+    if (y > x) {
+      return 0;
+    }
+
+    var int q;
+    let q = divide(x, 2*y);
+
+    if ((x-2*q*y) < y) {
+      return 2*q;
+    }
+    else {
+      return 2*q + 1
+    }
+  }
+
+  // Returns the minimum of x and y.
+  function int min(int x, int y) {
+    if (x > y) {
+      return y;
+    }
+    else {
+      return x;
+    }
+  }
+
+  // Returns the maximum of x and y. 
+  function int max(int x, int y) {
+    if (x > y) {
+      return x;
+    }
+    else {
+      return y;
+    }
+  }
+
+  // Returns the integer part of the square root of x.
+  function int sqrt(int x) {
+    var int y, j, n, k, c, zSq, z;
+
+    let y = 0;
+    let j = 7;
+
+    while (j > -1) {              //for (j = n/2 - 1; j > 0; j--)
+      let k = j;
+      let c = 2;
+
+      while (k > 1) {
+        c = c * 2                //2^j
+        k = k - 1;
+      }
+
+      let z = y + c;
+      let zSq = z * z;
+      if ((zSq < x) | (zSq = x)) {       //if (y + 2^j)^2 <= x
+        let y = z;                   //y = y + 2^j
+      }
+
+      let j = j - 1;
+    }
+    return y;
+  }
+
+  // Returns the binary value of a number
+  function Array binary(int x) {
+    var int dec;
+    var int exp;
+    var int bit;
+    var Array a;
+
+    let a = Array.new(15);
+    let dec = x;
+    let exp = 14;
+    let bit = 0;
+    while (exp > -1) {
+      var int twoExp;
+      var int i;
+      let twoExp = 2;
+      let i = exp;
+
+      while (i > 1) {
+        twoExp = twoExp * 2                //2^exp
+        i = i - 1;
+      }
+
+      if ((dec > twoExp) | (dec = twoExp)) {
+        let a[bit] = 1;
+        let dec = dec - twoExp;
+      }
+      else {
+        let a[bit] = 0;
+      }
+
+      let exp = exp - 1;
+      let bit = bit + 1;
+    }
+
+  return a;
+  }
+  
+}

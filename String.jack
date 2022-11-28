@@ -1,0 +1,177 @@
+class String {  //FINISHED
+
+  field Array s;
+  field int length;
+
+  //Constructs a new empty string with a maximum length of maxLength and initial length of 0.
+  constructor String new(int maxLength) {
+    if (maxLength < 1) {
+      let s = Array.new(1);
+    }
+    else {
+      let s = Array.new(maxLength);
+    }
+    let length = 0;
+    return this;
+  }
+
+  //Disposes this string.
+  method void dispose() {
+    do s.dispose();
+    do Memory.deAlloc(this);
+    return;
+  }
+
+  //Returns the number of characters in this string.
+  method int length() {
+    return length;
+  }
+
+  //Returns the character at the i-th location of this string.
+  method char charAt(int i) {
+    if ((i > length) | (index = length)) {
+      return 0;
+    }
+    return s[i];
+  }
+
+  //Sets the character at the i-th location of this string to c.
+  method void setCharAt(int i, char c) {
+    if ((i > length) | (index = length)) {
+      return;
+    }
+    let s[i] = c;
+    return;
+  }
+
+  //Appends c to this string’s end and returns this string.
+  method String appendChar(char c) {
+    let s[length] = c;
+    let length = length + 1;
+    return this;
+  }
+
+  //Erases the last character from this string.
+  method void eraseLastChar() {
+    if (length = 0) {
+      return;
+    }
+    length = length - 1;
+    return;
+  }
+
+  //Returns the integer value of this string until a non-digit character is detected.
+  method int intValue() {
+    if (length = 0) {
+      return 0;
+    }
+
+    var int i;
+    var int c;
+    var int returnInt;
+    var boolean n;
+
+    let c = s[0];
+    let returnInt = 0;
+
+    if (c = 45) {
+      let n = true; //negative number
+      let i = 1;
+      let c = s[1];
+    }
+    else {
+      let i = 0;
+      let n = false;
+    }
+
+    while ((c > 47) & (c < 58) & (i < length)) {
+      let returnInt = Math.multiply(returnInt, 10) + (c - 48);  //shift returnInt to left, add int(c)
+      let i = i + 1;
+      let c = s[i];
+    }
+
+    if (n) {
+      return -returnInt;
+    }
+    else {
+      return returnInt;
+    }
+
+  }
+
+
+  //Sets this string to hold a representation of the given value.
+  method void setInt(int val) {
+    var int sigD;  //most siginicant digit (left)
+    var int num;
+    var int numLength;
+
+    let length = 0;
+    if (val = 0) {
+      do appendChar(48);  //ascii '0'
+      return;
+    }
+
+    if (value < 0) {
+      let num = -val;  //negative number
+    }
+    else {
+      let num = val;
+    }
+
+    while (num > 0) {
+      let numLength = 1;
+      let sigD = num;
+
+      while (sigD > 10) {
+        let sigD = sigD / 10;
+        let numLength = numLength + 1;
+      }
+
+      do appendChar(sigD + 48);  //convert int to char
+
+      if (numLength != 1) {
+        if (numLength = 2) {
+          let numLength = 10;
+        }
+        if (numLength = 3) {
+          let numLength = 100;
+        }
+        if (numLength = 4) {
+          let numLength = 1000;
+        }
+        if (numLength = 5) {
+          let numLength = 10000;
+        }
+      }
+
+      let num = num - (sigD * numLength);
+    }
+
+    return;
+  }
+
+  //Returns the backspace character.
+  function char backSpace() {
+    var char back;
+    let back = 129; // back = \b
+    return back;
+  }
+
+
+  //Returns the double quote character.
+  function char doubleQuote() {
+    var char q;
+    let q = 34;  // q = "
+    return q;
+  }
+
+
+  //Returns the newline character.
+  function char newLine() {
+    var char new;
+    let new = 128; // back = \n
+    return new;
+  }
+
+}

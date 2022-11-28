@@ -1,0 +1,327 @@
+class Output { //FINISHED
+
+  static Array chars;
+  static int cRow;
+  static int cCol;
+  static int rMax;
+  static int cMax;
+  static Array sides;
+
+  function void init() {
+    let cRow = 0;
+    let cCol = 0;
+    let rMax = 22;
+    let cMax = 63;
+
+    let sides = Array.new(64); //even = false, odd = true
+    let sides[0] = false;
+    let sides[1] = true;
+    let sides[2] = false;
+    let sides[3] = true;
+    let sides[4] = false;
+    let sides[5] = true;
+    let sides[6] = false;
+    let sides[7] = true;
+    let sides[8] = false;
+    let sides[9] = true;
+    let sides[10] = false;
+    let sides[11] = true;
+    let sides[12] = false;
+    let sides[13] = true;
+    let sides[14] = false;
+    let sides[15] = true;
+    let sides[16] = false;
+    let sides[17] = true;
+    let sides[18] = false;
+    let sides[19] = true;
+    let sides[20] = false;
+    let sides[21] = true;
+    let sides[22] = false;
+    let sides[23] = true;
+    let sides[24] = false;
+    let sides[25] = true;
+    let sides[26] = false;
+    let sides[27] = true;
+    let sides[28] = false;
+    let sides[29] = true;
+    let sides[30] = false;
+    let sides[31] = true;
+    let sides[32] = false;
+    let sides[33] = true;
+    let sides[34] = false;
+    let sides[35] = true;
+    let sides[36] = false;
+    let sides[37] = true;
+    let sides[38] = false;
+    let sides[39] = true;
+    let sides[40] = false;
+    let sides[41] = true;
+    let sides[42] = false;
+    let sides[43] = true;
+    let sides[44] = false;
+    let sides[45] = true;
+    let sides[46] = false;
+    let sides[47] = true;
+    let sides[48] = false;
+    let sides[49] = true;
+    let sides[5] = false;
+    let sides[51] = true;
+    let sides[52] = false;
+    let sides[53] = true;
+    let sides[54] = false;
+    let sides[55] = true;
+    let sides[56] = false;
+    let sides[57] = true;
+    let sides[58] = false;
+    let sides[59] = true;
+    let sides[60] = false;
+    let sides[61] = true;
+    let sides[62] = false;
+    let sides[63] = true;
+
+    let chars = Array.new(127);
+    // Black square, used for displaying non-printable characters.
+    do create(0,63,63,63,63,63,63,63,63,63,0,0);
+
+    // The first parameter is the character index, the rest describe the character by row
+    do create(32,0,0,0,0,0,0,0,0,0,0,0);          //
+    do create(33,12,30,30,30,12,12,0,12,12,0,0);  // !
+    do create(34,54,54,20,0,0,0,0,0,0,0,0);       // "
+    do create(35,0,18,18,63,18,18,63,18,18,0,0);  // #
+    do create(36,12,30,51,3,30,48,51,30,12,12,0); // $
+    do create(37,0,0,35,51,24,12,6,51,49,0,0);    // %
+    do create(38,12,30,30,12,54,27,27,27,54,0,0); // &
+    do create(39,12,12,6,0,0,0,0,0,0,0,0);        // '
+    do create(40,24,12,6,6,6,6,6,12,24,0,0);      // (
+    do create(41,6,12,24,24,24,24,24,12,6,0,0);   // )
+    do create(42,0,0,0,51,30,63,30,51,0,0,0);     // *
+    do create(43,0,0,0,12,12,63,12,12,0,0,0);     // +
+    do create(44,0,0,0,0,0,0,0,12,12,6,0);        // ,
+    do create(45,0,0,0,0,0,63,0,0,0,0,0);         // -
+    do create(46,0,0,0,0,0,0,0,12,12,0,0);        // .    
+    do create(47,0,0,32,48,24,12,6,3,1,0,0);      // /
+            
+    do create(48,12,30,51,51,51,51,51,30,12,0,0); // 0
+    do create(49,12,14,15,12,12,12,12,12,63,0,0); // 1
+    do create(50,30,51,48,24,12,6,3,51,63,0,0);   // 2
+    do create(51,30,51,48,48,28,48,48,51,30,0,0); // 3
+    do create(52,16,24,28,26,25,63,24,24,60,0,0); // 4
+    do create(53,63,3,3,31,48,48,48,51,30,0,0);   // 5
+    do create(54,28,6,3,3,31,51,51,51,30,0,0);    // 6
+    do create(55,63,49,48,48,24,12,12,12,12,0,0); // 7
+    do create(56,30,51,51,51,30,51,51,51,30,0,0); // 8
+    do create(57,30,51,51,51,62,48,48,24,14,0,0); // 9
+      
+    do create(58,0,0,12,12,0,0,12,12,0,0,0);      // :
+    do create(59,0,0,12,12,0,0,12,12,6,0,0);      // ;
+    do create(60,0,0,24,12,6,3,6,12,24,0,0);      // <
+    do create(61,0,0,0,63,0,0,63,0,0,0,0);        // =
+    do create(62,0,0,3,6,12,24,12,6,3,0,0);       // >
+    do create(64,30,51,51,59,59,59,27,3,30,0,0);  // @
+    do create(63,30,51,51,24,12,12,0,12,12,0,0);  // ?
+
+    do create(65,12,30,51,51,63,51,51,51,51,0,0); // A 
+    do create(66,31,51,51,51,31,51,51,51,31,0,0); // B
+    do create(67,28,54,35,3,3,3,35,54,28,0,0);    // C
+    do create(68,15,27,51,51,51,51,51,27,15,0,0); // D
+    do create(69,63,51,35,11,15,11,35,51,63,0,0); // E
+    do create(70,63,51,35,11,15,11,3,3,3,0,0);    // F
+    do create(71,28,54,35,3,59,51,51,54,44,0,0);  // G
+    do create(72,51,51,51,51,63,51,51,51,51,0,0); // H
+    do create(73,30,12,12,12,12,12,12,12,30,0,0); // I
+    do create(74,60,24,24,24,24,24,27,27,14,0,0); // J
+    do create(75,51,51,51,27,15,27,51,51,51,0,0); // K
+    do create(76,3,3,3,3,3,3,35,51,63,0,0);       // L
+    do create(77,33,51,63,63,51,51,51,51,51,0,0); // M
+    do create(78,51,51,55,55,63,59,59,51,51,0,0); // N
+    do create(79,30,51,51,51,51,51,51,51,30,0,0); // O
+    do create(80,31,51,51,51,31,3,3,3,3,0,0);     // P
+    do create(81,30,51,51,51,51,51,63,59,30,48,0);// Q
+    do create(82,31,51,51,51,31,27,51,51,51,0,0); // R
+    do create(83,30,51,51,6,28,48,51,51,30,0,0);  // S
+    do create(84,63,63,45,12,12,12,12,12,30,0,0); // T
+    do create(85,51,51,51,51,51,51,51,51,30,0,0); // U
+    do create(86,51,51,51,51,51,30,30,12,12,0,0); // V
+    do create(87,51,51,51,51,51,63,63,63,18,0,0); // W
+    do create(88,51,51,30,30,12,30,30,51,51,0,0); // X
+    do create(89,51,51,51,51,30,12,12,12,30,0,0); // Y
+    do create(90,63,51,49,24,12,6,35,51,63,0,0);  // Z
+
+    do create(91,30,6,6,6,6,6,6,6,30,0,0);          // [
+    do create(92,0,0,1,3,6,12,24,48,32,0,0);        // \
+    do create(93,30,24,24,24,24,24,24,24,30,0,0);   // ]
+    do create(94,8,28,54,0,0,0,0,0,0,0,0);          // ^
+    do create(95,0,0,0,0,0,0,0,0,0,63,0);           // _
+    do create(96,6,12,24,0,0,0,0,0,0,0,0);          // `
+
+    do create(97,0,0,0,14,24,30,27,27,54,0,0);      // a
+    do create(98,3,3,3,15,27,51,51,51,30,0,0);      // b
+    do create(99,0,0,0,30,51,3,3,51,30,0,0);        // c
+    do create(100,48,48,48,60,54,51,51,51,30,0,0);  // d
+    do create(101,0,0,0,30,51,63,3,51,30,0,0);      // e
+    do create(102,28,54,38,6,15,6,6,6,15,0,0);      // f
+    do create(103,0,0,30,51,51,51,62,48,51,30,0);   // g
+    do create(104,3,3,3,27,55,51,51,51,51,0,0);     // h
+    do create(105,12,12,0,14,12,12,12,12,30,0,0);   // i
+    do create(106,48,48,0,56,48,48,48,48,51,30,0);  // j
+    do create(107,3,3,3,51,27,15,15,27,51,0,0);     // k
+    do create(108,14,12,12,12,12,12,12,12,30,0,0);  // l
+    do create(109,0,0,0,29,63,43,43,43,43,0,0);     // m
+    do create(110,0,0,0,29,51,51,51,51,51,0,0);     // n
+    do create(111,0,0,0,30,51,51,51,51,30,0,0);     // o
+    do create(112,0,0,0,30,51,51,51,31,3,3,0);      // p
+    do create(113,0,0,0,30,51,51,51,62,48,48,0);    // q
+    do create(114,0,0,0,29,55,51,3,3,7,0,0);        // r
+    do create(115,0,0,0,30,51,6,24,51,30,0,0);      // s
+    do create(116,4,6,6,15,6,6,6,54,28,0,0);        // t
+    do create(117,0,0,0,27,27,27,27,27,54,0,0);     // u
+    do create(118,0,0,0,51,51,51,51,30,12,0,0);     // v
+    do create(119,0,0,0,51,51,51,63,63,18,0,0);     // w
+    do create(120,0,0,0,51,30,12,12,30,51,0,0);     // x
+    do create(121,0,0,0,51,51,51,62,48,24,15,0);    // y
+    do create(122,0,0,0,63,27,12,6,51,63,0,0);      // z
+    
+    do create(123,56,12,12,12,7,12,12,12,56,0,0);   // {
+    do create(124,12,12,12,12,12,12,12,12,12,0,0);  // |
+    do create(125,7,12,12,12,56,12,12,12,7,0,0);    // }
+    do create(126,38,45,25,0,0,0,0,0,0,0,0);        // ~
+
+    return;
+  }
+
+  //Create a character with given values
+  function void create (int i, int r1, int r2, int r3, int r4, int r5, int r6, int r7, int r8, int r9, int r10, int r11) {
+    var Array c;
+    let c = Array.new(11);
+    let chars[i] = c;
+    let c[0] = r1;
+    let c[1] = r2;
+    let c[2] = r3;
+    let c[3] = r4;
+    let c[4] = r5;
+    let c[5] = r6;
+    let c[6] = r7;
+    let c[7] = r8;
+    let c[8] = r9;
+    let c[9] = r10;
+    let c[10] = r11;
+
+    return;
+  }
+
+  //: Moves the cursor to the j-th column of the i-th row and overrides the character displayed there.
+  function void moveCursor(int i, int j) {
+    if (((i < 0) | (i > rMax)) | ((j < 0) | (j > cMax))) {  //invalid column/row
+      return;
+    }
+
+    var char blank;
+    let blank = 32; //ASCII whitespace
+    let cRow = i;                //move cursor
+    let cCol = j;
+    do printChar(blank);  //remove character at location
+    let cRow = i;                //move cursor
+    let cCol = j;
+
+    return;
+  }
+  //: Displays the character at the cursor location and advances the cursor one column forward.
+  function void printChar(char c) {
+    var int curRow;
+    var int curCol;
+    var int line;
+    var Array cVal;
+    var int cLine;
+    var int i;
+    var int s;
+
+    if (cCol > cMax) {
+      do println();
+    }
+
+    if ((c < 32) | (c > 126))  { //NOT A CHARACTER
+      let cVal = 0;
+    }
+    else {
+      let cVal = chars[c];
+    }
+
+    let curRow = cRow * 11;     //cursor row * row width
+    let curCol = cCol * 8;      //cursor column * column width
+    let s = 16384 + ((curRow * 32) + (curCol / 16));
+    let i = 0;
+
+    while (i < 11) {  //print 11 rows for char
+      let line = Memory.peek(s);
+      let cLine = cVal[i];
+
+      if (sides[cCol]) {  //if true, change left side
+        let line = line & (255);  //remove all left side
+        let cLine = cLine * 256;  //left justify
+        let line = line | cLine;  //set left side to char
+      }
+      else {  //if false, change right side
+        let line = line & (-256);  //remove all right side
+        let line = line | cLine;  //set right side to char
+      }
+
+      do Memory.poke(s, line);
+      let s = s + 32;  //move directly below
+      let i = i + 1;
+    }
+
+    let cCol = cCol + 1;
+    return;
+  }
+
+  //: Displays the string starting at the cursor location and advances the cursor appropriately.
+  function void printString(String s) {
+    var int i;
+    let i = 0;
+
+    while (i < s.length()) {
+      do printChar(s.charAt(i));
+      let i = i + 1;
+    }
+
+    return;
+  }
+
+  //: Displays the integer starting at the cursor location and advances the cursor appropriately.
+  function void printInt(int i) {
+    var String num;
+    let num = String.new(10);
+    do num.setInt(i);
+    do printString(num);
+    do num.dispose();
+
+    return;
+  }
+
+  //: Advances the cursor to the beginning of the next line.
+  function void println() {
+    if (cRow = rMax)  {     //bottom of screen, reset
+      let cRow = 0;
+      let cCol = 0;
+    }
+    else {
+      let cRow = cRow + 1;
+      let cCol = 0;
+    }
+
+    return;
+  }
+
+  //: Moves the cursor one column back.
+  function void backSpace() {
+    if (cCol = 0) {
+      do moveCursor(cRow - 1, cCol);
+    }
+    else {
+      do moveCursor(cRow, cCol - 1);
+    }
+
+    return;
+  }
+
+}

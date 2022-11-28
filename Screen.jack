@@ -1,0 +1,263 @@
+class Screen {  //FINISHED
+  static boolean color;  //true = black, false = white
+  static Array pow2;
+
+  function void init() {
+    let color = true;
+    let pow2 = Array.new(16);  //all values for 16 bits
+    let pow2[0] = 1;
+    let pow2[1] = 2;
+    let pow2[2] = 4;
+    let pow2[3] = 8;
+    let pow2[4] = 16;
+    let pow2[5] = 32;
+    let pow2[6] = 64;
+    let pow2[7] = 128;
+    let pow2[8] = 256;
+    let pow2[9] = 512;
+    let pow2[10] = 1024;
+    let pow2[11] = 2048;
+    let pow2[12] = 4096;
+    let pow2[13] = 8192;
+    let pow2[14] = 16384;
+    let pow2[15] = 32767 + 1;  //overflow -> -32768
+
+    return;
+  }
+
+  //Erases the entire screen.
+  function void clearScreen() {
+    var int i;
+    let i = 16384;  //start of screen in memory
+
+    while (i < 24576) {  //end of screen
+      do Memory.poke(i, 0);
+      let i = i + 1;
+    }
+
+    return;
+  }
+
+  //Sets the current color. This color will be used in all the subsequent drawXxx function calls. 
+  //Black is represented by true, white by false.
+  function void setColor(boolean b) {
+    let color = b;
+    return;
+  }
+
+  // Draws the (x,y) pixel using the current color.
+  function void drawPixel(int x, int y) {
+    var int bit;
+    var int addr;
+    var int val;
+
+    //Find location from coordinates, set bit to x - bit
+    let bit = x / 16;
+    let addr = 16384 + ((y * 32) + bit);
+    let bit = x - (bit * 16);
+
+    let val = Memory.peek(addr);
+
+    if (color) {
+      let val = val | pow2[bit];  //black
+    }
+    else {
+      let val = val & (~pow2[bit]);
+    }
+
+    do Memory.poke(addr, val);
+    return;
+  }
+
+  //Draws a line from pixel (x1,y1) to pixel (x2,y2) using the current color.
+  function void drawLine(int x1, int y1, int x2, int y2) {
+    var int xOff;
+    var int yOff;
+    var int dLine;
+    var int dx;
+    var int dy;
+    var int xStart;
+    var int xEnd; 
+    var int yStart;
+    var int yEnd;
+    var int bit;
+    var int addr;
+    var int val;
+    var int i;
+    
+    let xOff = 0;
+    let yOff = 0;
+    let dLine = 0;
+    let dx = x2 - x1;
+    let dy = y2 - y1;
+
+    if ((dx = 0) & (dy = 0)) {  //1 pixel
+      do drawPixel(x1, y1);
+      return;
+    }
+
+    if ((dx > 0) & (dy > 0)) {  //south-east
+      while ((~(xOff > dx)) & (~(yOff > dy))) {
+        do drawPixel((x1 + xOff), (y1 + yOff));
+
+        if (dLine < 0) {  //overshoot
+          let xOff = xOff + 1;  
+          let dLine = dLine + dy;
+        }
+        else {  //undershoot
+          let yOff = yOff + 1;
+          let dLine = dLine - dx;
+        }
+      }
+    return;
+    }
+
+    if ((dx < 0) & (dy > 0)) {  //south-west
+      while ((~(xOff < dx)) & (~(yOff > dy))) {
+        do drawPixel((x1 + xOff), (y1 + yOff));
+
+        if (dLine < 0) {  //overshoot
+          let xOff = xOff - 1;  
+          let dLine = dLine + dy;
+        }
+        else {  //undershoot
+          let yOff = yOff + 1;
+          let dLine = dLine + dx;
+        }
+      }
+    return;
+    }
+
+    if ((dx < 0) & (dy < 0)) {  //north-west
+      while ((~(xOff < dx)) & (~(yOff < dy))) {
+        do drawPixel((x1 + xOff), (y1 + yOff));
+
+        if (dLine < 0) {  //overshoot
+          let xOff = xOff - 1;  
+          let dLine = dLine - dy;
+        }
+        else {  //undershoot
+          let yOff = yOff - 1;
+          let dLine = dLine + dx;
+        }
+      }
+    return;
+    }
+
+    if ((dx > 0) & (dy < 0)) {  //north-east
+      while ((~(xOff > dx)) & (~(yOff < dy))) {
+        do drawPixel((x1 + xOff), (y1 + yOff));
+
+        if (dLine < 0) {  //overshoot
+          let xOff = xOff + 1;  
+          let dLine = dLine - dy;
+        }
+        else {  //undershoot
+          let yOff = yOff - 1;
+          let dLine = dLine - dx;
+        }
+      }
+    return;
+    }
+
+    if (x2 > x1) {
+      let xStart = x1;
+      let xEnd = x2;
+    }
+    else {
+      let xStart = x2;
+      let xEnd = x1;
+    }
+
+    if (y2 > y1) {
+      let yStart = y1;
+      let yEnd = y2;
+    }
+    else {
+      let yStart = y2;
+      let yEnd = y1;
+    }
+
+    let bit = xStart / 16;
+    let addr = 16384 + ((yStart * 32) + bit);
+    let bit = xStart - (bit * 16);
+
+    if (dy = 0) {  //horizontal
+      while (xStart < xEnd) {
+        let val = Memory.peek(addr);
+
+        if (color) {
+          let val = val | pow2[bit];
+        }
+        else {
+          let val = val & (~pow2[bit]);
+        }
+
+        do Memory.poke(addr, val);
+
+        if (bit = 15) {
+          let bit = 0;
+          let addr = addr + 1;
+        }
+        else {
+          let bit = bit + 1;
+        }
+
+        let xStart = xStart + 1;
+      }
+    }
+    else {  //vertical
+      while (yStart < yEnd) {
+        let val = Memory.peek(addr);
+
+        if (color) {
+          let val = val | pow2[bit];
+        }
+        else {
+          let val = val & (~pow2[bit]);
+        }
+
+        do Memory.poke(addr, val);
+        let addr = addr + 32;
+        let yStart = yStart + 1;
+      }
+    }
+
+    return;    
+  }
+
+  //Draws a filled rectangle whose top-left corner is (x1,y1) and bottom-right corner is (x2,y2) using the current color.
+  function void drawRectangle(int x1, int y1, int x2, int y2) {
+    var int yOff;
+
+    while (~((y1 + yOff) > y2)) {
+      do drawLine(x1, (y1 + yOff), x2, (y1 + yOff));
+      let yOff = yOff + 1;
+    }
+
+    return;
+  }
+
+  //Draws a filled circle of radius r ≤ 181 around (x,y) using the current color.
+  function void drawCircle(int x, int y, int r) { 
+    if (r > 181) {  //illegal radius
+      return;
+    }
+
+    var int dy;
+    var int xOff;
+
+    let dy = 1;
+    do drawLine(x - r, y, x + r, y);
+
+    while (~(dy > r)) {
+      let xOff = Math.sqrt(((r * r) - (dy * dy)));  //pythagorean thereom
+      do drawLine(x - xOff, y + dy, x + xOff, y + dy);
+      do drawLine(x - xOff, y - dy, x + xOff, y - dy);
+      let dy = dy + 1;
+    }
+
+    return;
+  }
+
+}
