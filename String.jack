@@ -108,11 +108,11 @@ class String {  //FINISHED
 
     let length = 0;
     if (val = 0) {
-      do appendChar(48);  //ascii '0'
+      do String.appendChar(48);  //ascii '0'
       return;
     }
 
-    if (value < 0) {
+    if (val < 0) {
       let num = -val;  //negative number
     }
     else {
@@ -128,7 +128,7 @@ class String {  //FINISHED
         let numLength = numLength + 1;
       }
 
-      do appendChar(sigD + 48);  //convert int to char
+      do String.appendChar(sigD + 48);  //convert int to char
 
       if (numLength != 1) {
         if (numLength = 2) {
