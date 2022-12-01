@@ -240,12 +240,12 @@ class Screen {  //FINISHED
 
   //Draws a filled circle of radius r ≤ 181 around (x,y) using the current color.
   function void drawCircle(int x, int y, int r) { 
+    var int dy;
+    var int xOff;
+    
     if (r > 181) {  //illegal radius
       return;
     }
-
-    var int dy;
-    var int xOff;
 
     let dy = 1;
     do Screen.drawLine(x - r, y, x + r, y);
