@@ -81,7 +81,7 @@ class Output { //FINISHED
 
     let chars = Array.new(127);
     // Black square, used for displaying non-printable characters.
-    do create(0,63,63,63,63,63,63,63,63,63,0,0);
+    do Output.create(0,63,63,63,63,63,63,63,63,63,0,0);
 
     // The first parameter is the character index, the rest describe the character by row
     do Output.create(32,0,0,0,0,0,0,0,0,0,0,0);          //
@@ -211,11 +211,12 @@ class Output { //FINISHED
 
   //: Moves the cursor to the j-th column of the i-th row and overrides the character displayed there.
   function void moveCursor(int i, int j) {
+    var char blank;
+    
     if (((i < 0) | (i > rMax)) | ((j < 0) | (j > cMax))) {  //invalid column/row
       return;
     }
 
-    var char blank;
     let blank = 32; //ASCII whitespace
     let cRow = i;                //move cursor
     let cCol = j;
@@ -315,10 +316,10 @@ class Output { //FINISHED
   //: Moves the cursor one column back.
   function void backSpace() {
     if (cCol = 0) {
-      do moveCursor(cRow - 1, cCol);
+      do Output.moveCursor(cRow - 1, cCol);
     }
     else {
-      do moveCursor(cRow, cCol - 1);
+      do Output.moveCursor(cRow, cCol - 1);
     }
 
     return;
