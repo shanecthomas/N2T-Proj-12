@@ -31,10 +31,10 @@ class Keyboard { //FINISHED
     do Output.printString(message);
 
     while (~(nLine)) {
-      let c = readChar();
+      let c = Keyboard.readChar();
 
       if (c = String.newLine()) {
-        nLine = true;
+        let nLine = true;
       }
 
       if (c = String.backSpace()) {
@@ -67,10 +67,10 @@ class Keyboard { //FINISHED
 
     do Output.printString(message);
     while (~(finished)) {
-      let c = readChar();
+      let c = Keyboard.readChar();
       //if c != backspace && (c == (\n | !type(int)) | '-')
       if ((~(c = String.backSpace())) & ((c = String.newLine()) | ((c < 48) & (~(c = 45))) | ((c > 57) & (~(c = 45))))) {
-        finished = true;
+        let finished = true;
       }
 
       if (c = String.backSpace()) {
@@ -80,7 +80,7 @@ class Keyboard { //FINISHED
       }
 
       if (~(finished)) {
-        s.appendChar(c);
+        do s.appendChar(c);
       }
     }
 
@@ -98,11 +98,11 @@ class Keyboard { //FINISHED
     var char c;
     var char cursor;
 
-    let key = keyPressed();
+    let key = Keyboard.keyPressed();
     let cursor = 124;
 
     while (~(key = 0)) {
-      let key = keyPressed();
+      let key = Keyboard.keyPressed();
     }
 
     while (key = 0) {
@@ -114,7 +114,7 @@ class Keyboard { //FINISHED
 
     let c = key;
     while (~(key = 0)) {
-      let key = keyPressed();
+      let key = Keyboard.keyPressed();
     }
 
     do Output.printChar(c);
