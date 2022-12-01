@@ -7,7 +7,7 @@ class Sys { //FINISHED
     do Screen.init();
     do Keyboard.init();
     do Main.main();
-    do halt();
+    do Sys.halt();
     return;
   }
 
@@ -38,7 +38,7 @@ class Sys { //FINISHED
     do Output.printString(e);
     do e.dispose();
     do num.dispose();
-    do halt();
+    do Sys.halt();
     return;
   }
 
