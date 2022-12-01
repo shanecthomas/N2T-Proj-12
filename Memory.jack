@@ -23,7 +23,7 @@ class Memory {  //FINISHED
   function void poke(int address, int value) {
     var Array Memory;
     let Memory = 0;
-    let Memory[addres] = value;
+    let Memory[address] = value;
     return;
   }
 
