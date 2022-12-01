@@ -39,13 +39,13 @@ class Math { //FINISHED
       return 0;
     }
 
-    let q = divide(x, 2*y);
+    let q = Math.divide(x, 2*y);
 
     if ((x-2*q*y) < y) {
       return 2*q;
     }
     else {
-      return 2*q + 1
+      return 2*q + 1;
     }
   }
 
