@@ -231,7 +231,7 @@ class Screen {  //FINISHED
     var int yOff;
 
     while (~((y1 + yOff) > y2)) {
-      do drawLine(x1, (y1 + yOff), x2, (y1 + yOff));
+      do Screen.drawLine(x1, (y1 + yOff), x2, (y1 + yOff));
       let yOff = yOff + 1;
     }
 
@@ -248,12 +248,12 @@ class Screen {  //FINISHED
     var int xOff;
 
     let dy = 1;
-    do drawLine(x - r, y, x + r, y);
+    do Screen.drawLine(x - r, y, x + r, y);
 
     while (~(dy > r)) {
       let xOff = Math.sqrt(((r * r) - (dy * dy)));  //pythagorean thereom
-      do drawLine(x - xOff, y + dy, x + xOff, y + dy);
-      do drawLine(x - xOff, y - dy, x + xOff, y - dy);
+      do Screen.drawLine(x - xOff, y + dy, x + xOff, y + dy);
+      do Screen.drawLine(x - xOff, y - dy, x + xOff, y - dy);
       let dy = dy + 1;
     }
 
