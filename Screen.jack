@@ -92,13 +92,13 @@ class Screen {  //FINISHED
     let dy = y2 - y1;
 
     if ((dx = 0) & (dy = 0)) {  //1 pixel
-      do drawPixel(x1, y1);
+      do Screen.drawPixel(x1, y1);
       return;
     }
 
     if ((dx > 0) & (dy > 0)) {  //south-east
       while ((~(xOff > dx)) & (~(yOff > dy))) {
-        do drawPixel((x1 + xOff), (y1 + yOff));
+        do Screen.drawPixel((x1 + xOff), (y1 + yOff));
 
         if (dLine < 0) {  //overshoot
           let xOff = xOff + 1;  
@@ -114,7 +114,7 @@ class Screen {  //FINISHED
 
     if ((dx < 0) & (dy > 0)) {  //south-west
       while ((~(xOff < dx)) & (~(yOff > dy))) {
-        do drawPixel((x1 + xOff), (y1 + yOff));
+        do Screen.drawPixel((x1 + xOff), (y1 + yOff));
 
         if (dLine < 0) {  //overshoot
           let xOff = xOff - 1;  
@@ -130,7 +130,7 @@ class Screen {  //FINISHED
 
     if ((dx < 0) & (dy < 0)) {  //north-west
       while ((~(xOff < dx)) & (~(yOff < dy))) {
-        do drawPixel((x1 + xOff), (y1 + yOff));
+        do Screen.drawPixel((x1 + xOff), (y1 + yOff));
 
         if (dLine < 0) {  //overshoot
           let xOff = xOff - 1;  
@@ -146,7 +146,7 @@ class Screen {  //FINISHED
 
     if ((dx > 0) & (dy < 0)) {  //north-east
       while ((~(xOff > dx)) & (~(yOff < dy))) {
-        do drawPixel((x1 + xOff), (y1 + yOff));
+        do Screen.drawPixel((x1 + xOff), (y1 + yOff));
 
         if (dLine < 0) {  //overshoot
           let xOff = xOff + 1;  
