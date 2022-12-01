@@ -15,12 +15,12 @@ class Math { //FINISHED
 
     let sum = 0;
     let sftx = x;
-    let a = binary(y);
+    let a = Math.binary(y);
     let i = 0;
 
     while (i < 16) {
       if (a[i] = 1) {
-        sum = sum + sftx;
+        let sum = sum + sftx;
       }
       let sftx = 2 * sftx;
       let i = i + 1;
@@ -80,8 +80,8 @@ class Math { //FINISHED
       let c = 2;
 
       while (k > 1) {
-        c = c * 2                //2^j
-        k = k - 1;
+        let c = c * 2;                //2^j
+        let k = k - 1;
       }
 
       let z = y + c;
@@ -113,8 +113,8 @@ class Math { //FINISHED
       let i = exp;
 
       while (i > 1) {
-        twoExp = twoExp * 2                //2^exp
-        i = i - 1;
+        let twoExp = twoExp * 2                //2^exp
+        let i = i - 1;
       }
 
       if ((dec > twoExp) | (dec = twoExp)) {
