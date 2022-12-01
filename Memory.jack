@@ -37,38 +37,38 @@ class Memory {  //FINISHED
     var int ref;      //reference 
 
     let cBlock = head;
-    let cSize = peek(cBlock);
+    let cSize = Memory.peek(cBlock);
     let bfBlock = head;
     let bfPreBlock = 0;
 
-    while (~(peek(cBlock + 1) = 0)) {  //while more blocks in free list
+    while (~(Memory.peek(cBlock + 1) = 0)) {  //while more blocks in free list
       let pBlock = cBlock;
-      let cBlock = peek(cBlock + 1);
+      let cBlock = Memory.peek(cBlock + 1);
   
-      if ((~(cSize < (size + 1))) & ((cSize < peek(bfBlock)) | (peek(bfBlock) < (size + 1)))) {  //if current block is valid & less than previous block
+      if ((~(cSize < (size + 1))) & ((cSize < Memory.peek(bfBlock)) | (Memory.peek(bfBlock) < (size + 1)))) {  //if current block is valid & less than previous block
         let bfPreBlock = pBlock;
         let bfBlock = cBlock;
       }
     }
 
-    if (peek(bfBlock) < (size + 1)) {  //invalid block size
+    if (Memory.peek(bfBlock) < (size + 1)) {  //invalid block size
       do Sys.halt();
     }
 
-    if (peek(bfBlock) - (size + 1) < 2) {  //if all of bfBlock will be used, remove & return reference
+    if (Memory.peek(bfBlock) - (size + 1) < 2) {  //if all of bfBlock will be used, remove & return reference
       if (bfPreBlock = 0) {
-        let head = peek(bfBlock + 1);
+        let head = Memory.peek(bfBlock + 1);
       }
       else {
-        do poke(bfPreBlock + 1, peek(bfBlock + 1));
+        do Memory.poke(bfPreBlock + 1, Memory.peek(bfBlock + 1));
       }
 
       return bfBlock + 1;
     }
 
-    do poke(bfBlock, (Memory.peek(bfBlock) - (size + 1)));  //else, subtract block being used from bfBlock
-    let ref = bfBlock + peek(bfBlock) + 1;  //reference = end of bfBlock
-    do poke((ref - 1), (size + 1));
+    do Memory.poke(bfBlock, (Memory.peek(bfBlock) - (size + 1)));  //else, subtract block being used from bfBlock
+    let ref = bfBlock + Memory.peek(bfBlock) + 1;  //reference = end of bfBlock
+    do Memory.poke((ref - 1), (size + 1));
 
     return ref;
   }
@@ -78,7 +78,7 @@ class Memory {  //FINISHED
   function void deAlloc(Array o) {
     var int free;
     let free = o;
-    do poke(free, head);
+    do Memory.poke(free, head);
     let head = free - 1;
 
     return;
