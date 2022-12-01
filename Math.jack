@@ -33,11 +33,12 @@ class Math { //FINISHED
   //it handles it by invoking this function. Thus the Jack expressions x / y and the
   //function call Math.divide(x,y) return the same value.
   function int divide(int x, int y) {
+    var int q;
+    
     if (y > x) {
       return 0;
     }
 
-    var int q;
     let q = divide(x, 2*y);
 
     if ((x-2*q*y) < y) {
@@ -101,14 +102,14 @@ class Math { //FINISHED
     var int exp;
     var int bit;
     var Array a;
+    var int twoExp;
+    var int i;
 
     let a = Array.new(15);
     let dec = x;
     let exp = 14;
     let bit = 0;
     while (exp > -1) {
-      var int twoExp;
-      var int i;
       let twoExp = 2;
       let i = exp;
 
