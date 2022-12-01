@@ -25,7 +25,7 @@ class Math { //FINISHED
       let sftx = 2 * sftx;
       let i = i + 1;
     }
-    do a.dipose();
+    do a.dispose();
     return sum;
   }
 
