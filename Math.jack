@@ -114,7 +114,7 @@ class Math { //FINISHED
       let i = exp;
 
       while (i > 1) {
-        let twoExp = twoExp * 2                //2^exp
+        let twoExp = twoExp * 2;                //2^exp
         let i = i - 1;
       }
 
